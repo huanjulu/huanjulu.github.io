@@ -79,20 +79,20 @@
 
 
 
-<meta name="description" content="this article is ready for a people  who has some knowledge on android develop and a newer about how use opencv SDK in android . 一: what is opencv  简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法 In simple">
+<meta name="description" content="this article is ready for a people  who has some knowledge on android develop and a newer about how use opencv SDK in android . 一: what is opencv  简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法In simple t">
 <meta name="keywords" content="Android,NDK,JNI,Opencv,C++">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Opencv In Android">
 <meta property="og:url" content="http://yoursite.com/2017/05/06/Opencv-In-Android/index.html">
 <meta property="og:site_name" content="ANDROID TECH">
-<meta property="og:description" content="this article is ready for a people  who has some knowledge on android develop and a newer about how use opencv SDK in android . 一: what is opencv  简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法 In simple">
+<meta property="og:description" content="this article is ready for a people  who has some knowledge on android develop and a newer about how use opencv SDK in android . 一: what is opencv  简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法In simple t">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://opd7g7we7.bkt.clouddn.com/WX20170508-162944.png">
 <meta property="og:image" content="http://opd7g7we7.bkt.clouddn.com/opecv2.png">
-<meta property="og:updated_time" content="2017-10-11T10:57:07.000Z">
+<meta property="og:updated_time" content="2017-10-12T04:14:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Opencv In Android">
-<meta name="twitter:description" content="this article is ready for a people  who has some knowledge on android develop and a newer about how use opencv SDK in android . 一: what is opencv  简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法 In simple">
+<meta name="twitter:description" content="this article is ready for a people  who has some knowledge on android develop and a newer about how use opencv SDK in android . 一: what is opencv  简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法In simple t">
 <meta name="twitter:image" content="http://opd7g7we7.bkt.clouddn.com/WX20170508-162944.png">
 
 
@@ -391,8 +391,7 @@
       
         <p>this article is ready for a people  who has some knowledge on android develop and a newer about how use opencv SDK in android .</p>
 <p>一: what is opencv </p>
-<p>简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法</p>
-<p>In simple terms , opencv is a open source library about Cross-platform computer vision </p>
+<p>简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法<br>In simple terms , opencv is a open source library about Cross-platform computer vision </p>
 <p><a href="https://developer.android.com/ndk/downloads/index.html?hl=zh-cn" target="_blank" rel="external">here is opencv </a><br><a href="https://github.com/opencv/opencv" target="_blank" rel="external">here is opencv source code</a></p>
 <a id="more"></a>
 <p>二: Setting up OpenCv Library inside Android </p>
@@ -403,10 +402,7 @@
 <p>然后你需要使用sdk的java 部分的代码作为你项目的moudle</p>
 <p> <code>From File -&gt; New -&gt; Import Module</code>, choose folder <code>OpenCV-android-sdk -&gt; sdk -&gt; java</code> </p>
 <p>then add module dependency to your project</p>
-<p>in android studio, <code>Application -&gt; Module Settings</code> , select the Dependencies tab , click  <code>+</code> icon at bottom ,choose <code>Module Dependency</code> and select the have imported Opencv moudle </p>
-<p>it will looks like that :</p>
-<p><img src="http://opd7g7we7.bkt.clouddn.com/WX20170508-162944.png" alt="Opencv moudle"></p>
-<p>copy libs folder under <code>sdk/native</code> to Android Studio under  <code>app/src/main</code> , and rename  <code>libs</code> to <code>jniLibs</code> , </p>
+<p>in android studio, <code>Application -&gt; Module Settings</code> , select the Dependencies tab , click  <code>+</code> icon at bottom ,choose <code>Module Dependency</code> and select the have imported Opencv moudle<br>it will looks like that :<br><img src="http://opd7g7we7.bkt.clouddn.com/WX20170508-162944.png" alt="Opencv moudle"><br>copy libs folder under <code>sdk/native</code> to Android Studio under  <code>app/src/main</code> , and rename  <code>libs</code> to <code>jniLibs</code> , </p>
 <p><img src="http://opd7g7we7.bkt.clouddn.com/opecv2.png" alt="Opencv libs"></p>
 <p>3, use opencv library </p>
 <p>to use opencv, first you need to modify your Activity xml file . example  <code>activity_main.xml</code></p>
