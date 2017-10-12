@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,NDK,JNI," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Android NDK  简单来说就是可以让你的应用使用natice-code语言, （比如C ,C++)的工具集 一：what is the ndk   Ndk 是允许你在你的工程中可以使用native-code (比如C or c++)的工具, 你可以利用ndk来构建你的natice-app 正如我们知道的那样, Java 是构建android app 的默认语言, 然而, java 代码很容">
+<meta name="keywords" content="Android,NDK,JNI">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NDK in Android">
+<meta property="og:url" content="http://yoursite.com/2017/05/02/Ndk/index.html">
+<meta property="og:site_name" content="ANDROID TECH">
+<meta property="og:description" content="Android NDK  简单来说就是可以让你的应用使用natice-code语言, （比如C ,C++)的工具集 一：what is the ndk   Ndk 是允许你在你的工程中可以使用native-code (比如C or c++)的工具, 你可以利用ndk来构建你的natice-app 正如我们知道的那样, Java 是构建android app 的默认语言, 然而, java 代码很容">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://opd7g7we7.bkt.clouddn.com/WX20170503-174729.png">
+<meta property="og:image" content="http://opd7g7we7.bkt.clouddn.com/WX20170503-181618@2x.png">
+<meta property="og:updated_time" content="2017-10-11T10:59:00.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NDK in Android">
+<meta name="twitter:description" content="Android NDK  简单来说就是可以让你的应用使用natice-code语言, （比如C ,C++)的工具集 一：what is the ndk   Ndk 是允许你在你的工程中可以使用native-code (比如C or c++)的工具, 你可以利用ndk来构建你的natice-app 正如我们知道的那样, Java 是构建android app 的默认语言, 然而, java 代码很容">
+<meta name="twitter:image" content="http://opd7g7we7.bkt.clouddn.com/WX20170503-174729.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/02/Ndk/"/>
+
+
+
+
+
+  <title>NDK in Android | ANDROID TECH</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ANDROID TECH</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/02/Ndk/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="huanju lu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/WechatIMG93.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ANDROID TECH">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">NDK in Android</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-02T16:36:41+08:00">
+                2017-05-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NDK/" itemprop="url" rel="index">
+                    <span itemprop="name">NDK</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NDK/JNI/" itemprop="url" rel="index">
+                    <span itemprop="name">JNI</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/NDK/JNI/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Android NDK  简单来说就是可以让你的应用使用natice-code语言, （比如C ,C++)的工具集</p>
+<p>一：what is the ndk </p>
+<p> Ndk 是允许你在你的工程中可以使用native-code (比如C or c++)的工具, 你可以利用ndk来构建你的natice-app<br> 正如我们知道的那样, Java 是构建android app 的默认语言, 然而, java 代码很容易被反编译, 但是这对C++ code 来说这并不简单, 并且c++ 代码更加高效</p>
+<a id="more"></a>
+<p>二：why is ndk</p>
+<p>C++ 代码反编译困难 </p>
+<p>对于计算复杂量大的代码, C or C++ code can increase the performance of your app</p>
+<p>三：buliding native app</p>
+<p>如果你使用android studio 开发, 你需要下载安装ndk包, More info: <a href="https://developer.android.com/ndk/downloads/index.html?hl=zh-cn" target="_blank" rel="external">NDK</a></p>
+<p>1, 首先在代码中声明要在C++ code中要实现的native方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * auth:huanjulu</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</div><div class="line">        setSupportActionBar(toolbar);</div><div class="line">        ((TextView) findViewById(R.id.text)).setText(nativeMethod());</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onCreateOptionsMenu</span><span class="params">(Menu menu)</span> </span>&#123;</div><div class="line">        getMenuInflater().inflate(R.menu.menu_main, menu);</div><div class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">onOptionsItemSelected</span><span class="params">(MenuItem item)</span> </span>&#123;</div><div class="line">        <span class="comment">// Handle action bar item clicks here. The action bar will</span></div><div class="line">        <span class="comment">// automatically handle clicks on the Home/Up button, so long</span></div><div class="line">        <span class="comment">// as you specify a parent activity in AndroidManifest.xml.</span></div><div class="line">        <span class="keyword">int</span> id = item.getItemId();</div><div class="line"></div><div class="line">        <span class="comment">//noinspection SimplifiableIfStatement</span></div><div class="line">        <span class="keyword">if</span> (id == R.id.action_settings) &#123;</div><div class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">super</span>.onOptionsItemSelected(item);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * native code</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span></span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">nativeMethod</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>2, 对包含<code>native</code> 关键字方法的类, 生成<code>.h</code> 头文件</p>
+<p>进入到本地Java文件夹下 ,在Terminal input the follow commond</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">javah -d ../jni jniproject.ndkproject.MainActivity</div></pre></td></tr></table></figure>
+<p>first , <code>jniproject.ndkproject</code> is your package name  and <code>MainActivity</code> is the class name that contains native code</p>
+<p>and after that , you can see the <code>.h</code> file of  <code>MainActivity</code> class , it looks like :</p>
+<p><img src="http://opd7g7we7.bkt.clouddn.com/WX20170503-174729.png" alt="Qualified types"></p>
+<p>and we can looks what contents it contains</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/* DO NOT EDIT THIS FILE - it is machine generated */</div><div class="line"><span class="comment">#include &lt;jni.h&gt;</span></div><div class="line">/* Header <span class="keyword">for</span> class jniproject_ndkproject_MainActivity */</div><div class="line"></div><div class="line"><span class="comment">#ifndef _Included_jniproject_ndkproject_MainActivity</span></div><div class="line"><span class="comment">#define _Included_jniproject_ndkproject_MainActivity</span></div><div class="line"><span class="comment">#ifdef __cplusplus</span></div><div class="line">extern <span class="string">"C"</span> &#123;</div><div class="line"><span class="comment">#endif</span></div><div class="line">/*</div><div class="line"> * Class:     jniproject_ndkproject_MainActivity</div><div class="line"> * Method:    nativeMethod</div><div class="line"> * Signature: ()Ljava/lang/String;</div><div class="line"> */</div><div class="line">JNIEXPORT jstring JNICALL Java_jniproject_ndkproject_MainActivity_nativeMethod</div><div class="line">  (JNIEnv *, jobject);</div><div class="line"></div><div class="line"><span class="comment">#ifdef __cplusplus</span></div><div class="line">&#125;</div><div class="line"><span class="comment">#endif</span></div><div class="line"><span class="comment">#endif</span></div></pre></td></tr></table></figure>
+<p>3, <code>android.mk``application.mk</code> file</p>
+<p>在你的jni directory, 新建<code>android.mk</code>, </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">LOCAL_PATH := $(call my-dir)</div><div class="line">include $(CLEAR_VARS)</div><div class="line"></div><div class="line">LOCAL_MODULE := hellojni</div><div class="line">LOCAL_SRC_FILES := hellojni.cpp</div><div class="line">include $(BUILD_SHARED_LIBRARY)</div></pre></td></tr></table></figure>
+<p><code>application.mk</code> </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">APP_MODULES := hellojni  //生成的.so name</div><div class="line"></div><div class="line">APP_ABI := all  //生成的.so 目标cpu平台</div></pre></td></tr></table></figure>
+<p>if you want to know more information of syntax about them, here is the dox<br><a href="http://android.mk/#intro" target="_blank" rel="external">http://android.mk/#intro</a></p>
+<p>4, 编写你的natie-code 实现文件, (ig  .cpp or .c)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"jniproject_ndkproject_MainActivity.h"</span></span></div><div class="line"></div><div class="line">JNIEXPORT jstring JNICALL Java_jniproject_ndkproject_MainActivity_nativeMethod</div><div class="line">       (JNIEnv *env, jclass type) &#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> env-&gt;NewStringUTF(<span class="string">"this code from jni cpp"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>as wo can see that in above c++ code </p>
+<p>first , you need to include you <code>.h</code>file</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#include "jniproject_ndkproject_MainActivity.h"</div></pre></td></tr></table></figure>
+<p>接下来你需要按照c++ 代码的规范编写实现方法, 请注意方法实现的命名规范 (JNIEXPORT  返回值类型 JNICALL 包名<em>类名</em>方法名)</p>
+<p>5, ndk-build </p>
+<p>under the <code>jni</code> dictionary, generate <code>.so</code> file </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">luhuanju:jni huanjulu$ ndk-build</div></pre></td></tr></table></figure>
+<p>接下来你需要把生成的<code>app/src/main/libs</code> 下的平台的.so 文件复制到 <code>app/libs</code> 下</p>
+<p><img src="http://opd7g7we7.bkt.clouddn.com/WX20170503-181618@2x.png" alt="Qualified types"></p>
+<p>6, <code>app/build.gradle</code> config seeting </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">apply plugin: <span class="string">'com.android.application'</span></div><div class="line"></div><div class="line">android &#123;</div><div class="line">    compileSdkVersion <span class="number">25</span></div><div class="line">    buildToolsVersion <span class="string">"25.0.2"</span></div><div class="line">    defaultConfig &#123;</div><div class="line">        applicationId <span class="string">"jniproject.ndkproject"</span></div><div class="line">        minSdkVersion <span class="number">15</span></div><div class="line">        targetSdkVersion <span class="number">25</span></div><div class="line">        versionCode <span class="number">1</span></div><div class="line">        versionName <span class="string">"1.0"</span></div><div class="line">        testInstrumentationRunner <span class="string">"android.support.test.runner.AndroidJUnitRunner"</span></div><div class="line"></div><div class="line"></div><div class="line">        ndk &#123;<span class="comment">//指定生成的lib，比如此时生成native.so</span></div><div class="line">            moduleName   <span class="string">"hellojni"</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    buildTypes &#123;</div><div class="line">        release &#123;</div><div class="line">            minifyEnabled <span class="keyword">false</span></div><div class="line">            <span class="function">proguardFiles <span class="title">getDefaultProguardFile</span><span class="params">(<span class="string">'proguard-android.txt'</span>)</span>, 'proguard-rules.pro'</span></div><div class="line"><span class="function">        &#125;</span></div><div class="line"><span class="function">    &#125;</span></div><div class="line"><span class="function">&#125;</span></div><div class="line"><span class="function"></span></div><div class="line"><span class="function">dependencies </span>&#123;</div><div class="line">    <span class="function">compile <span class="title">fileTree</span><span class="params">(dir: <span class="string">'libs'</span>, include: [<span class="string">'*.jar'</span>])</span></span></div><div class="line"><span class="function">    <span class="title">androidTestCompile</span><span class="params">(<span class="string">'com.android.support.test.espresso:espresso-core:2.2.2'</span>, &#123;</span></span></div><div class="line"><span class="function"><span class="params">        exclude group: <span class="string">'com.android.support'</span>, <span class="keyword">module</span>: <span class="string">'support-annotations'</span></span></span></div><div class="line"><span class="function"><span class="params">    &#125;)</span></span></div><div class="line"><span class="function">    compile 'com.android.support:appcompat-v7:25.2.0'</span></div><div class="line"><span class="function">    compile 'com.android.support.constraint:constraint-layout:1.0.0-beta4'</span></div><div class="line"><span class="function">    compile 'com.android.support:design:25.2.0'</span></div><div class="line"><span class="function">    testCompile 'junit:junit:4.12'</span></div><div class="line"><span class="function">&#125;</span></div></pre></td></tr></table></figure>
+<p>the the last step is that you just need call you natice-code library </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> jniproject.ndkproject;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.os.Bundle;</div><div class="line"><span class="keyword">import</span> android.support.v7.app.AppCompatActivity;</div><div class="line"><span class="keyword">import</span> android.support.v7.widget.Toolbar;</div><div class="line"><span class="keyword">import</span> android.widget.TextView;</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * auth:huanjulu</span></div><div class="line"><span class="comment"> */</span></div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">static</span> &#123;</div><div class="line">        System.loadLibrary(<span class="string">"hellojni"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);</div><div class="line">        setSupportActionBar(toolbar);</div><div class="line">        ((TextView) findViewById(R.id.text)).setText(nativeMethod());</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * native code</span></div><div class="line"><span class="comment">     *</span></div><div class="line"><span class="comment">     * <span class="doctag">@return</span></span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> String <span class="title">nativeMethod</span><span class="params">()</span></span>;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>here is source code </p>
+<p><a href="https://github.com/isicout/JNIProgjectExample" target="_blank" rel="external">https://github.com/isicout/JNIProgjectExample</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/NDK/" rel="tag"># NDK</a>
+          
+            <a href="/tags/JNI/" rel="tag"># JNI</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/02/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/04/Jenkins/" rel="prev" title="Jenkins CI">
+                Jenkins CI <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/WechatIMG93.jpeg"
+                alt="huanju lu" />
+            
+              <p class="site-author-name" itemprop="name">huanju lu</p>
+              <p class="site-description motion-element" itemprop="description">FULL STACK ROAD</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/isicout" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:isicout@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://stackoverflow.com/users/7718881/isicout?tab=profile" target="_blank" title="StackOverflow">
+                    
+                      <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">huanju lu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

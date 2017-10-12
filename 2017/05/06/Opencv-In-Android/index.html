@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Android,NDK,JNI,Opencv,C++," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="this article is ready for a people  who has some knowledge on android develop and a newer about how use opencv SDK in android . 一: what is opencv  简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法 In simple">
+<meta name="keywords" content="Android,NDK,JNI,Opencv,C++">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Opencv In Android">
+<meta property="og:url" content="http://yoursite.com/2017/05/06/Opencv-In-Android/index.html">
+<meta property="og:site_name" content="ANDROID TECH">
+<meta property="og:description" content="this article is ready for a people  who has some knowledge on android develop and a newer about how use opencv SDK in android . 一: what is opencv  简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法 In simple">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://opd7g7we7.bkt.clouddn.com/WX20170508-162944.png">
+<meta property="og:image" content="http://opd7g7we7.bkt.clouddn.com/opecv2.png">
+<meta property="og:updated_time" content="2017-10-11T10:57:07.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Opencv In Android">
+<meta name="twitter:description" content="this article is ready for a people  who has some knowledge on android develop and a newer about how use opencv SDK in android . 一: what is opencv  简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法 In simple">
+<meta name="twitter:image" content="http://opd7g7we7.bkt.clouddn.com/WX20170508-162944.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/06/Opencv-In-Android/"/>
+
+
+
+
+
+  <title>Opencv In Android | ANDROID TECH</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">ANDROID TECH</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/05/06/Opencv-In-Android/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="huanju lu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/WechatIMG93.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ANDROID TECH">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Opencv In Android</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-05-06T15:17:39+08:00">
+                2017-05-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Opencv/" itemprop="url" rel="index">
+                    <span itemprop="name">Opencv</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Opencv/NDK/" itemprop="url" rel="index">
+                    <span itemprop="name">NDK</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Opencv/NDK/JNI/" itemprop="url" rel="index">
+                    <span itemprop="name">JNI</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Opencv/NDK/JNI/Android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Opencv/NDK/JNI/Android/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>this article is ready for a people  who has some knowledge on android develop and a newer about how use opencv SDK in android .</p>
+<p>一: what is opencv </p>
+<p>简单的来说,  opencv 是跨平台的计算机视觉开源库, 它包含了很多图像识别算法</p>
+<p>In simple terms , opencv is a open source library about Cross-platform computer vision </p>
+<p><a href="https://developer.android.com/ndk/downloads/index.html?hl=zh-cn" target="_blank" rel="external">here is opencv </a><br><a href="https://github.com/opencv/opencv" target="_blank" rel="external">here is opencv source code</a></p>
+<a id="more"></a>
+<p>二: Setting up OpenCv Library inside Android </p>
+<p>1, first our develop environment</p>
+<p>Android Studio<br>Opencv SDK 3.2</p>
+<p>2, you need download and import Opencv library SDK into android studio peoject </p>
+<p><a href="http://opencv.org/opencv-3-2.html" target="_blank" rel="external">SDK</a></p>
+<p>然后你需要使用sdk的java 部分的代码作为你项目的moudle</p>
+<p> <code>From File -&gt; New -&gt; Import Module</code>, choose folder <code>OpenCV-android-sdk -&gt; sdk -&gt; java</code> </p>
+<p>then add module dependency to your project</p>
+<p>in android studio, <code>Application -&gt; Module Settings</code> , select the Dependencies tab , click  <code>+</code> icon at bottom ,choose <code>Module Dependency</code> and select the have imported Opencv moudle </p>
+<p>it will looks like that :</p>
+<p><img src="http://opd7g7we7.bkt.clouddn.com/WX20170508-162944.png" alt="Opencv moudle"></p>
+<p>copy libs folder under <code>sdk/native</code> to Android Studio under  <code>app/src/main</code> , and rename  <code>libs</code> to <code>jniLibs</code> , </p>
+<p><img src="http://opd7g7we7.bkt.clouddn.com/opecv2.png" alt="Opencv libs"></p>
+<p>3, use opencv library </p>
+<p>to use opencv, first you need to modify your Activity xml file . example  <code>activity_main.xml</code></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;FrameLayout xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></div><div class="line">    xmlns:tools=<span class="string">"http://schemas.android.com/tools"</span></div><div class="line">    xmlns:opencv=<span class="string">"http://schemas.android.com/apk/res-auto"</span></div><div class="line">    android:layout_width=<span class="string">"match_parent"</span></div><div class="line">    android:layout_height=<span class="string">"match_parent"</span> &gt;</div><div class="line"></div><div class="line">    &lt;org.opencv.android.JavaCameraView</div><div class="line">        android:layout_width=<span class="string">"fill_parent"</span></div><div class="line">        android:layout_height=<span class="string">"fill_parent"</span></div><div class="line">        android:visibility=<span class="string">"gone"</span></div><div class="line">        android:id=<span class="string">"@+id/tutorial1_activity_java_surface_view"</span></div><div class="line">        opencv:show_fps=<span class="string">"true"</span></div><div class="line">        opencv:camera_id=<span class="string">"any"</span> /&gt;</div><div class="line"></div><div class="line">&lt;/FrameLayout&gt;</div></pre></td></tr></table></figure>
+<p>then modify your activity , load the <code>libopencv_java3.so</code> , in here , Note: for OpenCV version 3 at this step you should instead load the library <code>opencv_java3</code>.  OpenCV version 2, you should load the <code>opencv_java</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.example.huanjulu.opencvinandroidexample;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.opencv.android.BaseLoaderCallback;</div><div class="line"><span class="keyword">import</span> org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;</div><div class="line"><span class="keyword">import</span> org.opencv.android.LoaderCallbackInterface;</div><div class="line"><span class="keyword">import</span> org.opencv.android.OpenCVLoader;</div><div class="line"><span class="keyword">import</span> org.opencv.core.Mat;</div><div class="line"><span class="keyword">import</span> org.opencv.android.CameraBridgeViewBase;</div><div class="line"><span class="keyword">import</span> org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;</div><div class="line"></div><div class="line"><span class="keyword">import</span> android.app.Activity;</div><div class="line"><span class="keyword">import</span> android.os.Bundle;</div><div class="line"><span class="keyword">import</span> android.util.Log;</div><div class="line"><span class="keyword">import</span> android.view.MenuItem;</div><div class="line"><span class="keyword">import</span> android.view.SurfaceView;</div><div class="line"><span class="keyword">import</span> android.view.WindowManager;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">Activity</span> <span class="keyword">implements</span> <span class="title">CvCameraViewListener2</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String TAG = <span class="string">"OCVSample::Activity"</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> CameraBridgeViewBase mOpenCvCameraView;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">boolean</span> mIsJavaCamera = <span class="keyword">true</span>;</div><div class="line">    <span class="keyword">private</span> MenuItem mItemSwitchCamera = <span class="keyword">null</span>;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> BaseLoaderCallback mLoaderCallback = <span class="keyword">new</span> BaseLoaderCallback(<span class="keyword">this</span>) &#123;</div><div class="line">        <span class="meta">@Override</span></div><div class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onManagerConnected</span><span class="params">(<span class="keyword">int</span> status)</span> </span>&#123;</div><div class="line">            <span class="keyword">switch</span> (status) &#123;</div><div class="line">                <span class="keyword">case</span> LoaderCallbackInterface.SUCCESS: &#123;</div><div class="line">                    Log.i(TAG, <span class="string">"OpenCV loaded successfully"</span>);</div><div class="line">                    mOpenCvCameraView.enableView();</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">                <span class="keyword">default</span>: &#123;</div><div class="line">                    <span class="keyword">super</span>.onManagerConnected(status);</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">static</span> &#123;</div><div class="line">        System.loadLibrary(<span class="string">"opencv_java3"</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="comment">/**</span></div><div class="line"><span class="comment">     * Called when the activity is first created.</span></div><div class="line"><span class="comment">     */</span></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        Log.i(TAG, <span class="string">"called onCreate"</span>);</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);</div><div class="line"></div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line"></div><div class="line">        mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.tutorial1_activity_java_surface_view);</div><div class="line"></div><div class="line">        mOpenCvCameraView.setVisibility(SurfaceView.VISIBLE);</div><div class="line"></div><div class="line">        mOpenCvCameraView.setCvCameraViewListener(<span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onPause</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onPause();</div><div class="line">        <span class="keyword">if</span> (mOpenCvCameraView != <span class="keyword">null</span>)</div><div class="line">            mOpenCvCameraView.disableView();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResume</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onResume();</div><div class="line">        <span class="keyword">if</span> (!OpenCVLoader.initDebug()) &#123;</div><div class="line">            Log.d(TAG, <span class="string">"Internal OpenCV library not found. Using OpenCV Manager for initialization"</span>);</div><div class="line">            OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_3_0_0, <span class="keyword">this</span>, mLoaderCallback);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            Log.d(TAG, <span class="string">"OpenCV library found inside package. Using it!"</span>);</div><div class="line">            mLoaderCallback.onManagerConnected(LoaderCallbackInterface.SUCCESS);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onDestroy</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onDestroy();</div><div class="line">        <span class="keyword">if</span> (mOpenCvCameraView != <span class="keyword">null</span>)</div><div class="line">            mOpenCvCameraView.disableView();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCameraViewStarted</span><span class="params">(<span class="keyword">int</span> width, <span class="keyword">int</span> height)</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCameraViewStopped</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> Mat <span class="title">onCameraFrame</span><span class="params">(CvCameraViewFrame inputFrame)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> inputFrame.rgba();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>You can create the Main Activity copying the above code. </p>
+<p>First you would like notice is that <code>MainActivity</code> implements  <code>CvCameraViewListener2</code> interface , this interface woulf enfore us to implement few methods which are related to  the camera </p>
+<p>then </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Mat <span class="title">onCameraFrame</span><span class="params">(CvCameraViewFrame inputFrame)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> inputFrame.rgba();</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>这个是你使用opencv Java code 很重要的一个方法, 它接受相机的每帧原始数据, 并且你可以在这个方法内做所有的图片片处理工作, 它返回 <code>Mat</code>  作为相机要接受的帧数据.</p>
+<p>it is the best importment method for you use opencv , this will receiver the vedio as frames and you can do all the image processing inside this method and return a Mat thie this image  :)</p>
+<p>dont forget the permission of camera in your <code>AndroidMainfest.xml</code> </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span>?&gt;</div><div class="line">&lt;manifest xmlns:android=<span class="string">"http://schemas.android.com/apk/res/android"</span></div><div class="line">    <span class="keyword">package</span>=<span class="string">"com.example.huanjulu.opencvinandroidexample"</span>&gt;</div><div class="line">    &lt;supports-screens android:resizeable=<span class="string">"true"</span></div><div class="line">        android:smallScreens=<span class="string">"true"</span></div><div class="line">        android:normalScreens=<span class="string">"true"</span></div><div class="line">        android:largeScreens=<span class="string">"true"</span></div><div class="line">        android:anyDensity=<span class="string">"true"</span> /&gt;</div><div class="line"></div><div class="line">    &lt;uses-sdk android:minSdkVersion=<span class="string">"8"</span> /&gt;</div><div class="line"></div><div class="line">    &lt;uses-permission android:name=<span class="string">"android.permission.CAMERA"</span>/&gt;</div><div class="line"></div><div class="line">    &lt;uses-feature android:name=<span class="string">"android.hardware.camera"</span> android:required=<span class="string">"false"</span>/&gt;</div><div class="line">    &lt;uses-feature android:name=<span class="string">"android.hardware.camera.autofocus"</span> android:required=<span class="string">"false"</span>/&gt;</div><div class="line">    &lt;uses-feature android:name=<span class="string">"android.hardware.camera.front"</span> android:required=<span class="string">"false"</span>/&gt;</div><div class="line">    &lt;uses-feature android:name=<span class="string">"android.hardware.camera.front.autofocus"</span> android:required=<span class="string">"false"</span>/&gt;</div><div class="line">    &lt;application</div><div class="line">        android:allowBackup=<span class="string">"true"</span></div><div class="line">        android:icon=<span class="string">"@mipmap/ic_launcher"</span></div><div class="line">        android:label=<span class="string">"@string/app_name"</span></div><div class="line">        android:roundIcon=<span class="string">"@mipmap/ic_launcher_round"</span></div><div class="line">        android:supportsRtl=<span class="string">"true"</span></div><div class="line">        android:theme=<span class="string">"@style/AppTheme"</span>&gt;</div><div class="line">        &lt;activity android:name=<span class="string">".MainActivity"</span>&gt;</div><div class="line">            &lt;intent-filter&gt;</div><div class="line">                &lt;action android:name=<span class="string">"android.intent.action.MAIN"</span> /&gt;</div><div class="line"></div><div class="line">                &lt;category android:name=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</div><div class="line">            &lt;/intent-filter&gt;</div><div class="line">        &lt;/activity&gt;</div><div class="line">    &lt;/application&gt;</div><div class="line"></div><div class="line">&lt;/manifest&gt;</div></pre></td></tr></table></figure>
+<p>when open this application , if you get the follow prompt :</p>
+<p>It seems that you device does not support camera (or it is locked ). Application will be closed.</p>
+<p>at this moment , you need manually turn on the camera Permission in device settting </p>
+<p>okay ,then yon can enjoy it </p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+            <a href="/tags/NDK/" rel="tag"># NDK</a>
+          
+            <a href="/tags/JNI/" rel="tag"># JNI</a>
+          
+            <a href="/tags/Opencv/" rel="tag"># Opencv</a>
+          
+            <a href="/tags/C/" rel="tag"># C++</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/04/Jenkins/" rel="next" title="Jenkins CI">
+                <i class="fa fa-chevron-left"></i> Jenkins CI
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/05/08/detection-the-largest-retangle/" rel="prev" title="detection the largest retangle , OpenCv 检测最大矩形">
+                detection the largest retangle , OpenCv 检测最大矩形 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/WechatIMG93.jpeg"
+                alt="huanju lu" />
+            
+              <p class="site-author-name" itemprop="name">huanju lu</p>
+              <p class="site-description motion-element" itemprop="description">FULL STACK ROAD</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/isicout" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:isicout@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://stackoverflow.com/users/7718881/isicout?tab=profile" target="_blank" title="StackOverflow">
+                    
+                      <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">huanju lu</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
