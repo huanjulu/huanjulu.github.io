@@ -88,7 +88,7 @@
 <meta property="og:description" content="很多人在Java的书籍中看到过很多关于堆和栈内存的教程以及参考说明, 但是很难解释什么是程序的堆内存以及栈内存">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cdn.journaldev.com/wp-content/uploads/2014/08/Java-Heap-Stack-Memory.png">
-<meta property="og:updated_time" content="2017-10-12T07:59:15.000Z">
+<meta property="og:updated_time" content="2017-10-12T08:07:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 堆栈内存分配">
 <meta name="twitter:description" content="很多人在Java的书籍中看到过很多关于堆和栈内存的教程以及参考说明, 但是很难解释什么是程序的堆内存以及栈内存">
@@ -370,7 +370,17 @@
 <p>参考上面的java 程序, 下图显示了stack Heap 内存空间的使用情况</p>
 <p><img src="https://cdn.journaldev.com/wp-content/uploads/2014/08/Java-Heap-Stack-Memory.png" alt=""></p>
 <p>我们来看看执行程序的步骤。</p>
-<h2 id="一旦我们开始运行程序，-它会把所有的运行时类加载到堆内存空间-在-Line-1-行找到main-方法，-Java-Runtime-创建由main-方法线程使用的栈内存空间"><a href="#一旦我们开始运行程序，-它会把所有的运行时类加载到堆内存空间-在-Line-1-行找到main-方法，-Java-Runtime-创建由main-方法线程使用的栈内存空间" class="headerlink" title="一旦我们开始运行程序， 它会把所有的运行时类加载到堆内存空间, 在 Line 1 行找到main() 方法， Java Runtime 创建由main() 方法线程使用的栈内存空间"></a>一旦我们开始运行程序， 它会把所有的运行时类加载到堆内存空间, 在 Line 1 行找到main() 方法， Java Runtime 创建由main() 方法线程使用的栈内存空间</h2><h2 id="在第二行-我们创建了原始数据类型的局部变量-所以它将被存储在main-方法的栈内存空间"><a href="#在第二行-我们创建了原始数据类型的局部变量-所以它将被存储在main-方法的栈内存空间" class="headerlink" title="在第二行 我们创建了原始数据类型的局部变量, 所以它将被存储在main() 方法的栈内存空间"></a>在第二行 我们创建了原始数据类型的局部变量, 所以它将被存储在main() 方法的栈内存空间</h2><h2 id="在第3行我们创建了一个Object-类型的对象-所以它被创建在Heap-堆内存空间中-并且-Stack-栈内存空间包含对它的引用-当我们在第4行中创建Memory-对象时-会发生类似的过程"><a href="#在第3行我们创建了一个Object-类型的对象-所以它被创建在Heap-堆内存空间中-并且-Stack-栈内存空间包含对它的引用-当我们在第4行中创建Memory-对象时-会发生类似的过程" class="headerlink" title="在第3行我们创建了一个Object 类型的对象, 所以它被创建在Heap 堆内存空间中 并且 Stack 栈内存空间包含对它的引用, 当我们在第4行中创建Memory 对象时,  会发生类似的过程"></a>在第3行我们创建了一个Object 类型的对象, 所以它被创建在Heap 堆内存空间中 并且 Stack 栈内存空间包含对它的引用, 当我们在第4行中创建Memory 对象时,  会发生类似的过程</h2><h2 id="现在我们在第5行调用foo-方法-此时会在stack-栈创建一个block-供foo-方法使用"><a href="#现在我们在第5行调用foo-方法-此时会在stack-栈创建一个block-供foo-方法使用" class="headerlink" title="现在我们在第5行调用foo() 方法, 此时会在stack 栈创建一个block 供foo() 方法使用"></a>现在我们在第5行调用foo() 方法, 此时会在stack 栈创建一个block 供foo() 方法使用</h2><h2 id="Java-是通过值传递-在第6行-会在foo-栈中创建一个对Object-对象的新的引用"><a href="#Java-是通过值传递-在第6行-会在foo-栈中创建一个对Object-对象的新的引用" class="headerlink" title="Java 是通过值传递, 在第6行, 会在foo() 栈中创建一个对Object 对象的新的引用"></a>Java 是通过值传递, 在第6行, 会在foo() 栈中创建一个对Object 对象的新的引用</h2><h2 id="在第7行-一个string-类型的对象被创建-此时-会在foo-栈内存中创建它的一个引用-str"><a href="#在第7行-一个string-类型的对象被创建-此时-会在foo-栈内存中创建它的一个引用-str" class="headerlink" title="在第7行 , 一个string 类型的对象被创建, 此时 会在foo() 栈内存中创建它的一个引用 str"></a>在第7行 , 一个string 类型的对象被创建, 此时 会在foo() 栈内存中创建它的一个引用 str</h2><h2 id="foo-方法在第8行执行完毕-此时-程序会释放stack-栈内存中为foo-方法分配的栈内存空间"><a href="#foo-方法在第8行执行完毕-此时-程序会释放stack-栈内存中为foo-方法分配的栈内存空间" class="headerlink" title="foo() 方法在第8行执行完毕, 此时, 程序会释放stack 栈内存中为foo() 方法分配的栈内存空间"></a>foo() 方法在第8行执行完毕, 此时, 程序会释放stack 栈内存中为foo() 方法分配的栈内存空间</h2><h2 id="在第9行-main-方法执行完毕，-为main（）方法创建的堆栈内存被销毁-此时-这个java-程序结束运行-Java-Runtime-会释放所有的内存"><a href="#在第9行-main-方法执行完毕，-为main（）方法创建的堆栈内存被销毁-此时-这个java-程序结束运行-Java-Runtime-会释放所有的内存" class="headerlink" title="在第9行, main() 方法执行完毕， 为main（）方法创建的堆栈内存被销毁,  此时 这个java 程序结束运行,  Java Runtime 会释放所有的内存"></a>在第9行, main() 方法执行完毕， 为main（）方法创建的堆栈内存被销毁,  此时 这个java 程序结束运行,  Java Runtime 会释放所有的内存</h2><p>　</p>
+<ul>
+<li>一旦我们开始运行程序， 它会把所有的运行时类加载到堆内存空间, 在 Line 1 行找到main() 方法， Java Runtime 创建由main() 方法线程使用的栈内存空间</li>
+<li>在第二行 我们创建了原始数据类型的局部变量, 所以它将被存储在main() 方法的栈内存空间</li>
+<li>在第3行我们创建了一个Object 类型的对象, 所以它被创建在Heap 堆内存空间中 并且 Stack 栈内存空间包含对它的引用, 当我们在第4行中创建Memory 对象时,  会发生类似的过程</li>
+<li>现在我们在第5行调用foo() 方法, 此时会在stack 栈创建一个block 供foo() 方法使用</li>
+<li>Java 是通过值传递, 在第6行, 会在foo() 栈中创建一个对Object 对象的新的引用</li>
+<li>在第7行 , 一个string 类型的对象被创建, 此时 会在foo() 栈内存中创建它的一个引用 str</li>
+<li>foo() 方法在第8行执行完毕, 此时, 程序会释放stack 栈内存中为foo() 方法分配的栈内存空间</li>
+<li>在第9行, main() 方法执行完毕， 为main（）方法创建的堆栈内存被销毁,  此时 这个java 程序结束运行,  Java Runtime 会释放所有的内存</li>
+</ul>
+<p>　</p>
 
       
     </div>
@@ -467,17 +477,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -563,22 +564,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一旦我们开始运行程序，-它会把所有的运行时类加载到堆内存空间-在-Line-1-行找到main-方法，-Java-Runtime-创建由main-方法线程使用的栈内存空间"><span class="nav-number">1.</span> <span class="nav-text">一旦我们开始运行程序， 它会把所有的运行时类加载到堆内存空间, 在 Line 1 行找到main() 方法， Java Runtime 创建由main() 方法线程使用的栈内存空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在第二行-我们创建了原始数据类型的局部变量-所以它将被存储在main-方法的栈内存空间"><span class="nav-number">2.</span> <span class="nav-text">在第二行 我们创建了原始数据类型的局部变量, 所以它将被存储在main() 方法的栈内存空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在第3行我们创建了一个Object-类型的对象-所以它被创建在Heap-堆内存空间中-并且-Stack-栈内存空间包含对它的引用-当我们在第4行中创建Memory-对象时-会发生类似的过程"><span class="nav-number">3.</span> <span class="nav-text">在第3行我们创建了一个Object 类型的对象, 所以它被创建在Heap 堆内存空间中 并且 Stack 栈内存空间包含对它的引用, 当我们在第4行中创建Memory 对象时,  会发生类似的过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#现在我们在第5行调用foo-方法-此时会在stack-栈创建一个block-供foo-方法使用"><span class="nav-number">4.</span> <span class="nav-text">现在我们在第5行调用foo() 方法, 此时会在stack 栈创建一个block 供foo() 方法使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-是通过值传递-在第6行-会在foo-栈中创建一个对Object-对象的新的引用"><span class="nav-number">5.</span> <span class="nav-text">Java 是通过值传递, 在第6行, 会在foo() 栈中创建一个对Object 对象的新的引用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在第7行-一个string-类型的对象被创建-此时-会在foo-栈内存中创建它的一个引用-str"><span class="nav-number">6.</span> <span class="nav-text">在第7行 , 一个string 类型的对象被创建, 此时 会在foo() 栈内存中创建它的一个引用 str</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#foo-方法在第8行执行完毕-此时-程序会释放stack-栈内存中为foo-方法分配的栈内存空间"><span class="nav-number">7.</span> <span class="nav-text">foo() 方法在第8行执行完毕, 此时, 程序会释放stack 栈内存中为foo() 方法分配的栈内存空间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在第9行-main-方法执行完毕，-为main（）方法创建的堆栈内存被销毁-此时-这个java-程序结束运行-Java-Runtime-会释放所有的内存"><span class="nav-number">8.</span> <span class="nav-text">在第9行, main() 方法执行完毕， 为main（）方法创建的堆栈内存被销毁,  此时 这个java 程序结束运行,  Java Runtime 会释放所有的内存</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
