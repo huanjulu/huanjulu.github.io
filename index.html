@@ -344,28 +344,16 @@
 
       
         
-          
-            <p>一： What is Context? </p>
+          <p>一： What is Context? </p>
 <p>顾名思义, Context 它是应用程序／对象的当前状态的上下文, 它允许新创见的对象了解发生了什么. 通常, 是为了获取程序另外一部分的信息。</p>
-<p>并且, Context 是系统的句柄, 它提供了访问Application resource 资源, 连接database 系统数据库等服务, Activity object 继承了Context object. </p>
-<p>it allow you access the specific resource of your application and  the some information about the application environment</p>
-<p>Context在Android 开发的过程中无处不在 并且它是开发中相当重的事情, 所以我们必须要正确的去understand it .</p>
-<p>错误的使用Context可能会导致Android的内存泄漏</p>
-<p>Android中有很多不同种类型的Context ,所以让我们理解它们都是什么, 如何使用以及何时使用哪一种更加有利于我们开发</p>
-<p>二：Application Context</p>
-<p>Application Context 是一个单例的实例并且可以通过<code>getApplicationContext()</code> 访问. 它是跟应用程序的生命周期绑定在一起的, </p>
-<p>一个有趣的example use : 如果你不得不为你的程序创建一个单例对象, 且该对象需要Context 上下文, 此时你可以使用Application context</p>
-<p>如果你传递<code>Activity Conetxt</code>,那么它会持有Activity 的引用导致Activity 不能被垃圾收集器回收 从而导致程序内存泄漏</p>
-<p>以防万一, 当你必须在Activity 中初始化一个library的时候, 总是传递<code>Application Conetxt</code> 而不是<code>Activity Conetxt</code> </p>
-<p>三：Activity Context</p>
-<p>Activity Context 用于Activity中, 它是跟Activity的生命周期绑定, this context should be used  when you are passing this context in the scope of an activity,  或者用于 那些生命周期与当前Activity 保持同步的组件内.</p>
-<p>example use: 如果你必须创建一个生命周期绑定到当前Activity的对象, 此时你可以使用 <code>Activity Conetxt</code></p>
-<p>三：getContext() in ContentProvider</p>
-<p>this Context 跟Application Context 的使用非常相像,  可以通过 <code>getContext()</code>方法访问</p>
-<p>四： 使用Context 一些规则</p>
-<p>In most cases, 使用当前所在的组件内生命周期的Context, 只要该引用不超出组件生命周期, 你可以安全的持有它的引用,  一旦需要保存超出Activity 或者Service组件范围的Context 引用, 即便是临时的, 选择<code>Application Conetxt</code></p>
-
-          
+<p>并且, Context 是系统的句柄, 它提供了访问Application resource 资源, 连接database 系统数据库等服务, Activity object 继承了Context object.<br>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/31/understand-the-context/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
